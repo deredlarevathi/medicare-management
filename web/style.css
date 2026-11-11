@@ -1,0 +1,94 @@
+:root {
+  --ink: #1b2b34;
+  --muted: #5d6f78;
+  --paper: #f6f8f7;
+  --card: #ffffff;
+  --line: #d6dfdc;
+  --teal: #1e7b72;
+  --teal-soft: #e3f0ed;
+  --coral: #c4533a;
+  --done: #2f6f3e;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; display: grid; grid-template-columns: 230px 1fr; min-height: 100vh;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  color: var(--ink); background: var(--paper); line-height: 1.5;
+}
+.side { background: var(--ink); color: #e8efed; padding: 28px 18px; }
+.side h1 { margin: 0; font-size: 1.6rem; letter-spacing: .2px; }
+.tag { margin: 2px 0 28px; color: #9db1ab; font-size: .9rem; }
+nav { display: grid; gap: 4px; }
+nav button {
+  display: flex; justify-content: space-between; align-items: center;
+  background: none; border: 0; color: inherit; font: inherit; text-align: left;
+  padding: 10px 12px; border-radius: 6px; cursor: pointer;
+}
+nav button:hover { background: rgba(255,255,255,.08); }
+nav button.active { background: var(--teal); color: #fff; }
+.badge { font-size: .8rem; background: rgba(255,255,255,.16); padding: 1px 9px; border-radius: 10px; }
+
+main { padding: 32px 40px; max-width: 1100px; width: 100%; }
+h2 { margin: 0 0 18px; font-size: 1.5rem; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; }
+input, select {
+  font: inherit; padding: 9px 11px; border: 1px solid var(--line);
+  border-radius: 6px; background: var(--card); color: var(--ink); min-width: 0;
+}
+input:focus, select:focus, button:focus-visible { outline: 2px solid var(--teal); outline-offset: 1px; }
+button.primary {
+  font: inherit; background: var(--teal); color: #fff; border: 0;
+  padding: 9px 16px; border-radius: 6px; cursor: pointer;
+}
+button.primary:hover { background: #17655d; }
+button.link { background: none; border: 0; font: inherit; color: var(--coral); cursor: pointer; padding: 4px; }
+button.link.ok { color: var(--teal); }
+
+table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); font-size: .95rem; }
+th { background: var(--teal-soft); font-weight: 600; }
+tr:last-child td { border-bottom: 0; }
+td.empty { color: var(--muted); text-align: center; padding: 26px; }
+.status { font-weight: 600; }
+.status.Scheduled { color: var(--teal); }
+.status.Completed { color: var(--done); }
+.status.Cancelled { color: var(--coral); }
+
+.msg { padding: 10px 14px; border-radius: 6px; margin-bottom: 16px; background: var(--teal-soft); border: 1px solid var(--teal); }
+.msg.error { background: #f8e5e0; border-color: var(--coral); }
+
+@media (max-width: 760px) {
+  body { grid-template-columns: 1fr; }
+  .side { padding: 16px; }
+  .tag { display: none; }
+  nav { grid-template-columns: repeat(2, 1fr); }
+  main { padding: 20px 14px; overflow-x: auto; }
+}
+
+/* ---- sidebar footer, roles ---- */
+.side { display: flex; flex-direction: column; }
+.who { margin-top: auto; padding: 14px 12px 0; border-top: 1px solid rgba(255,255,255,.14); display: grid; gap: 2px; }
+.who span { color: #9db1ab; font-size: .85rem; }
+.signout { margin-top: 8px; background: none; border: 1px solid rgba(255,255,255,.3); color: #e8efed; font: inherit; padding: 6px 10px; border-radius: 6px; cursor: pointer; }
+.signout:hover { background: rgba(255,255,255,.1); }
+body[data-role="DOCTOR"] .no-doctor { display: none; }
+body:not([data-role="ADMIN"]) .admin-only { display: none; }
+
+/* ---- billing ---- */
+.summary { display: flex; gap: 14px; margin-bottom: 18px; flex-wrap: wrap; }
+.summary div { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 10px 18px; display: grid; }
+.summary span { color: var(--muted); font-size: .85rem; }
+.summary strong { font-size: 1.3rem; }
+.status.Paid { color: var(--done); }
+.status.Unpaid { color: var(--coral); }
+td select { padding: 4px 6px; font-size: .85rem; }
+
+/* ---- login ---- */
+body.login { display: flex; align-items: center; justify-content: center; padding: 20px; }
+.login-card { width: 100%; max-width: 360px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 32px 28px; display: grid; gap: 8px; }
+.login-card h1 { margin: 0; font-size: 1.7rem; }
+.login-card .tag { color: var(--muted); margin: 0 0 14px; }
+.login-card label { font-size: .9rem; font-weight: 600; }
+.login-card input { width: 100%; }
+.login-card button { margin-top: 12px; }
+.hint { color: var(--muted); font-size: .8rem; margin: 10px 0 0; }

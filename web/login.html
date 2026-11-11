@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in – MediCare</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="login">
+<form id="f-login" class="login-card">
+  <h1>MediCare</h1>
+  <p class="tag">Sign in to the hospital system</p>
+  <div id="err" class="msg error" role="alert" hidden></div>
+  <label for="username">Username</label>
+  <input id="username" name="username" autocomplete="username" required autofocus>
+  <label for="password">Password</label>
+  <input id="password" name="password" type="password" autocomplete="current-password" required>
+  <button class="primary" id="go">Sign in</button>
+  <p class="hint">Demo logins: admin / admin123, reception / recep123, doctor / doctor123</p>
+</form>
+
+<script>
+const form = document.getElementById("f-login");
+const err = document.getElementById("err");
+
+fetch("/api/me").then((r) => { if (r.ok) location.href = "/index.html"; });
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  err.hidden = true;
+  try {
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(new FormData(form))
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Couldn't sign in");
+    location.href = "/index.html";
+  } catch (e) {
+    err.textContent = e.message;
+    err.hidden = false;
+  }
+});
+</script>
+</body>
+</html>
